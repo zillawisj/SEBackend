@@ -26,7 +26,6 @@ router
   .delete(protect, authorize("admin"), deleteMenu);
   
 module.exports = router;
-
 /**
  * @swagger
  * components:

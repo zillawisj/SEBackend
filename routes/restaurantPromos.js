@@ -22,7 +22,7 @@ const {
     .delete(protect, authorize("admin"), deleteRestaurantPromo);
   
   module.exports = router;
-  /**
+    /**
  * @swagger
  * components:
  *   schemas:
@@ -187,7 +187,3 @@ const {
  *       '500':
  *         description: Internal server error.
  */
-
-
-
-  
