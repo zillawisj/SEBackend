@@ -10,6 +10,10 @@ const limiter = rateLimit({
     windowsMs:10*60*1000,
     max: 100
 });
+
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUI = require('swagger-ui-express');
+
 const hpp = require('hpp');
 const cors = require('cors');
 
@@ -50,21 +54,26 @@ app.use('api/v1/menureviews', menureview);
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, console.log('Server running in ', process.env.NODE_ENV, 'on '+ process.env.HOST + ":"+ PORT));
 
-const swaggerOptions= {
-swaggerDefinition:{
-    openapi: '3.0.0',
-    info: {
-        title:'Library API',
-        version: '1.0.0',
-        description: 'Car Booking API'
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'Library API',
+            version: '1.0.0',
+            description: 'Restaurant reservation API'
+        },
+        servers:
+            [
+                {
+                    url: process.env.HOST + ":" + PORT + '/api/v1'
+                }
+            ],
     },
-    servers: [
-        {
-            url: process.env.HOST + ': ' + PORT + '/api/v1'
-        }
-    ]
-}
-}
+    apis: ['./routes/*.js'],
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 process.on('unhandleRejection',(err,promise)=>{
     console.log(`Error: ${err.message}`);
