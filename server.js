@@ -65,7 +65,7 @@ const swaggerOptions = {
         servers:
             [
                 {
-                    url: 'https://backend-se-2.vercel.app/api/v1'
+                    url: '/api/v1'
                 }
             ],
     },
